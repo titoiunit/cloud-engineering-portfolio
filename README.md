@@ -8,7 +8,7 @@ This repository is the main index for my cloud engineering portfolio.
 
 It brings together my hands-on projects in AWS, Azure, Terraform, Python, Docker, CI/CD, backend fundamentals, and cloud architecture.
 
-The goal is to show my growth as a hands-on junior cloud / DevOps engineer who can build, document, and explain practical infrastructure projects.
+The goal is to show my growth as a hands-on cloud / DevOps engineer who can build, document, and explain practical infrastructure projects.
 
 ## Portfolio focus
 
