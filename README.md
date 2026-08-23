@@ -1,185 +1,68 @@
-# Cloud Engineering Portfolio
+# Cloud & DevOps Engineering Portfolio
 
-A practical cloud engineering portfolio focused on AWS, Azure, Terraform, Python, Docker, CI/CD, automation, and infrastructure documentation.
+Hands-on portfolio of AWS, Azure, Terraform, Docker, Python and CI/CD work.
 
-## Overview
+I build cloud solutions with a practical engineering mindset: clarify the operational need, choose the simplest secure architecture that meets it, automate it with Infrastructure as Code, validate the result, and document the trade-offs and cleanup.
 
-This repository is the main index for my cloud engineering portfolio.
+## What I bring
 
-It brings together my hands-on projects in AWS, Azure, Terraform, Python, Docker, CI/CD, backend fundamentals, and cloud architecture.
+- **Infrastructure as Code:** Terraform modules, environment structure, remote state and repeatable deployments
+- **AWS architecture:** VPC networking, EC2, RDS, S3, CloudFront, API Gateway, Lambda, DynamoDB, SQS/SNS, ECS Fargate and Auto Scaling
+- **DevOps delivery:** Dockerized workloads, GitHub Actions, OIDC-based AWS authentication, deployment and rollback thinking
+- **Cloud operations:** CloudWatch, logging, alarms, cost awareness, least-privilege IAM and cleanup discipline
+- **Application context:** Python services, PostgreSQL and API fundamentals
 
-The goal is to show my growth as a hands-on cloud / DevOps engineer who can build, document, and explain practical infrastructure projects.
+## Featured work
 
-## Portfolio focus
+| Project | Architecture / focus | What it demonstrates |
+|---|---|---|
+| [AWS Infrastructure Architectures](https://github.com/titoiunit/aws-infrastructure-architectures) | EC2 + RDS, serverless API, event-driven processing, Auto Scaling, ECS Fargate and static delivery | Choosing compute patterns, Terraform, networking, security boundaries and scalable design |
+| [AWS Terraform Infrastructure](https://github.com/titoiunit/aws-terraform-infrastructure) | Terraform, remote state, Docker, GitHub Actions OIDC and Amazon ECR delivery | Reusable IaC, environment separation, short-lived cloud credentials and repeatable delivery |
+| [Azure Hands-on Projects](https://github.com/titoiunit/azure-hands-on-projects) | Storage, Linux VM, Functions, event-driven processing, containers, monitoring and Terraform | Transferable cloud concepts across AWS and Azure |
+| [Python Production Backend Template](https://github.com/titoiunit/python-production-backend-template) | Python service foundations, configuration and structured logging | How application behavior, operations and cloud deployment connect |
 
-- Cloud infrastructure
-- Infrastructure as Code
-- Terraform
-- AWS
-- Microsoft Azure
-- Docker
-- Python automation
-- CI/CD
-- Cloud architecture
-- Backend fundamentals
-- Cost-aware cloud learning
-- Technical documentation
-
-## Featured projects
-
-### 1. AWS Terraform Infrastructure
-
-Production-style AWS infrastructure project focused on Terraform, CI/CD, Docker, Python automation, and cloud deployment best practices.
-
-Repository:
+## Engineering approach
 
 ```text
-aws-terraform-infrastructure
+Understand the workload
+→ assess security, availability and cost constraints
+→ design the smallest appropriate architecture
+→ implement with Terraform and version control
+→ validate deployment and failure paths
+→ add observability and document operations
+→ clean up temporary resources
 ```
 
-What this project demonstrates:
+A working deployment alone is not the finish line; the project must also be explainable, maintainable and cost-conscious.
 
-- Terraform project structure
-- AWS infrastructure
-- Dockerized application foundation
-- GitHub Actions workflow structure
-- cloud deployment best practices
-- production-style cloud engineering thinking
+## Evidence standards
 
----
+Each completed project is documented against the same standard:
 
-### 2. Azure Hands-on Projects
+1. **Problem and constraints** — what the workload needed and what was deliberately out of scope  
+2. **Architecture and decisions** — services used, alternatives considered and key trade-offs  
+3. **Implementation** — Terraform, application or automation components  
+4. **Security and operations** — IAM, network boundaries, logging, alarms and failure handling  
+5. **Validation** — how the deployment and important paths were tested  
+6. **Cost and cleanup** — guardrails, resources to destroy and proof of safe teardown  
+7. **Interview summary** — a concise explanation of the business value and engineering choices  
 
-Practical Azure cloud portfolio with hands-on projects in Terraform, Azure CLI, networking, compute, storage, serverless, and monitoring.
+## Current depth-building roadmap
 
-Repository:
+- ECS blue/green deployments and rollback validation
+- RDS recovery, RTO/RPO and Multi-AZ trade-offs
+- Private AWS access with VPC endpoints
+- CloudWatch monitoring, alarms and operational runbooks
+- Secrets rotation and least-privilege access
+- Kubernetes foundations, then a cost-controlled EKS validation
+- Backup and recovery testing
 
-```text
-azure-hands-on-projects
-```
+## Repository map
 
-What this project demonstrates:
-
-- Azure fundamentals
-- hands-on Azure learning
-- Terraform with Azure
-- Azure CLI practice
-- cloud networking
-- compute, storage, serverless, and monitoring basics
-- cost-safe cleanup habits
-
----
-
-### 3. AWS Infrastructure Architectures
-
-Hands-on AWS infrastructure architecture projects built with Terraform, covering static websites, web apps, serverless backends, event-driven systems, auto scaling, and containerized deployments.
-
-Repository:
-
-```text
-aws-infrastructure-architectures
-```
-
-What this project demonstrates:
-
-- AWS architecture patterns
-- serverless backend design
-- event-driven systems
-- auto scaling infrastructure
-- containerized cloud deployment
-- architecture documentation
-
----
-
-### 4. Python Production Backend Template
-
-Production-ready Python backend template with structured logging, environment configuration, and REST API foundations.
-
-Repository:
-
-```text
-python-production-backend-template
-```
-
-What this project demonstrates:
-
-- Python backend structure
-- structured logging
-- environment configuration
-- REST API foundations
-- cloud-ready application thinking
-- connection between application code and cloud deployment
-
-## My cloud engineering direction
-
-My current focus is building practical cloud infrastructure projects and becoming stronger in:
-
-- AWS infrastructure
-- Azure fundamentals
-- Terraform
-- CI/CD workflows
-- Docker
-- Python automation
-- cloud architecture
-- consulting-style explanation and documentation
-
-I am building this portfolio to show practical learning, clear documentation, and the ability to understand how cloud systems are designed and deployed.
-
-## How I approach learning
-
-I learn best by building.
-
-My process:
-
-```text
-learn the concept
-→ build a small project
-→ document the architecture
-→ test the deployment
-→ clean up resources
-→ write what I learned
-```
-
-## What this portfolio demonstrates
-
-This portfolio shows that I can:
-
-- build hands-on cloud projects
-- organize infrastructure repositories clearly
-- document technical work in a readable way
-- understand cloud architecture patterns
-- use Infrastructure as Code
-- work with automation and deployment workflows
-- connect backend application thinking with infrastructure
-- learn new cloud platforms systematically
-
-## Tools and technologies
-
-```text
-AWS
-Azure
-Terraform
-Docker
-Python
-GitHub Actions
-Linux
-CI/CD
-Infrastructure as Code
-Cloud Architecture
-```
-
-## Current learning path
-
-```text
-AWS foundation
-→ Terraform and Infrastructure as Code
-→ CI/CD and Docker
-→ AWS architecture patterns
-→ Azure hands-on projects
-→ monitoring and operations
-→ consulting-style cloud documentation
-```
+- `architecture-maps/` — cross-cloud and service-pattern comparisons
+- `case-studies/` — deeper explanations of completed work
+- `interview-notes/` — concise, evidence-based interview narratives
 
 ## Status
 
-Active cloud engineering portfolio.
+Active portfolio. I build the implementation first, then publish the architecture, validation evidence and operational notes that support it.
