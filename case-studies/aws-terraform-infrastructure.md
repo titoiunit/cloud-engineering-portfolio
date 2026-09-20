@@ -2,7 +2,9 @@
 
 ## Purpose
 
-This project connects application delivery with cloud infrastructure management. The goal was to practice a repeatable AWS workflow without storing long-lived AWS access keys in GitHub.
+This project connected application delivery with cloud infrastructure management. The goal was to build and validate a repeatable AWS workflow without storing long-lived AWS access keys in GitHub.
+
+The work was completed in a real AWS learning account during its Free Tier period. After successful validation, the account was intentionally retired to avoid maintaining unused resources and credentials.
 
 ## Problem
 
@@ -12,9 +14,10 @@ A cloud deployment needs more than a Terraform folder or a Dockerfile. It needs 
 - build and identify container images
 - validate Infrastructure as Code before applying it
 - keep Terraform state predictable
-- separate development, QA and production concerns
+- separate reusable code from environment-specific values
+- preserve evidence after temporary learning infrastructure is removed
 
-## Architecture
+## Validated AWS delivery architecture
 
 ```mermaid
 flowchart LR
@@ -22,67 +25,80 @@ flowchart LR
   O --> I["AWS IAM role"]
   G --> D["Docker image build"]
   D --> E["Amazon ECR"]
-  G --> T["Terraform validation and apply"]
+  G --> T["Terraform plan + apply"]
   T --> S["Versioned S3 remote state"]
 ```
 
 ## Implementation evidence
 
-| Area | Implementation |
+| Area | Evidence |
 |---|---|
-| CI/CD authentication | GitHub Actions requests an OIDC token and assumes an AWS IAM role instead of using static AWS credentials. |
-| Container delivery | The build workflow creates Docker images and publishes both environment and commit-SHA tags to Amazon ECR. |
-| IaC validation | The Terraform workflow runs formatting, initialization, validation and planning before applying. |
-| State management | Terraform uses an S3 backend with native lockfile support. |
-| Secure S3 baseline | The infrastructure defines bucket versioning, public-access blocking and Bucket Owner Enforced object ownership. |
-| Environments | Workflows have explicit dev, QA and production choices, with environment-specific role and ECR repository values. |
+| CI/CD authentication | A successful GitHub Actions run assumed an AWS IAM role through OIDC instead of static credentials. |
+| Container delivery | Docker images were published to Amazon ECR with environment and commit-SHA tags. |
+| Terraform delivery | A successful workflow ran formatting, initialization, validation, planning and apply. |
+| State management | The deployment used an S3 backend with native lockfile support. |
+| Reusable infrastructure | The current code contains a secure S3 module with explicit inputs and outputs. |
+| Current CI | Terraform configurations are validated and the container is built, started and health-checked without a live AWS account. |
 
-Key implementation files:
+Key evidence:
 
-- [Build and publish to ECR](https://github.com/titoiunit/aws-terraform-infrastructure/blob/main/.github/workflows/build-and-push-ecr.yml)
-- [Terraform deployment workflow](https://github.com/titoiunit/aws-terraform-infrastructure/blob/main/.github/workflows/deploy-terraform.yml)
-- [OIDC role test](https://github.com/titoiunit/aws-terraform-infrastructure/blob/main/.github/workflows/test-oidc.yml)
-- [Terraform backend and provider versions](https://github.com/titoiunit/aws-terraform-infrastructure/blob/main/terraform/versions.tf)
-- [Secure S3 configuration](https://github.com/titoiunit/aws-terraform-infrastructure/blob/main/terraform/main.tf)
+- [Historical AWS validation record](https://github.com/titoiunit/aws-terraform-infrastructure/blob/main/docs/historical-aws-validation.md)
+- [Successful Terraform deployment](https://github.com/titoiunit/aws-terraform-infrastructure/actions/runs/23757359671)
+- [Successful OIDC verification](https://github.com/titoiunit/aws-terraform-infrastructure/actions/runs/23742622936)
+- [Successful ECR delivery](https://github.com/titoiunit/aws-terraform-infrastructure/actions/runs/23768419201)
+- [Current portfolio CI](https://github.com/titoiunit/aws-terraform-infrastructure/blob/main/.github/workflows/terraform-pr-checks.yml)
+- [Reusable secure S3 module](https://github.com/titoiunit/aws-terraform-infrastructure/tree/main/modules)
 
 ## Key decisions and trade-offs
 
 ### OIDC instead of long-lived access keys
 
-GitHub Actions is given `id-token: write` and exchanges that token for short-lived AWS credentials through an IAM role. This reduces secret-management risk and ties permissions to a named workflow and repository context.
+GitHub Actions exchanged its identity token for short-lived AWS credentials through an IAM role. This reduced secret-management risk and tied access to the repository and workflow context.
 
-### Commit-SHA image tags alongside environment tags
+### Commit-SHA image tags
 
-An environment tag makes a deployment easy to identify, while a commit-SHA tag provides an immutable reference for traceability and rollback.
+Environment tags made deployments easy to identify, while commit-SHA tags provided immutable references for traceability and rollback.
 
 ### S3 remote state with lockfile support
 
-Remote state makes the infrastructure workflow repeatable beyond one local machine. Locking prevents concurrent state changes from overwriting each other.
+Remote state made the infrastructure workflow repeatable beyond one local machine. Locking protected concurrent state changes. The current repository uses partial backend configuration so account-specific values remain outside source control.
 
-### Direct apply on the main branch
+### Retiring the learning account
 
-The current workflow is intentionally hands-on and deploys from `main`. Before using the same pattern for a production workload, I would add a pull-request plan check, protected environments, approval gates and a rollback runbook.
+The AWS account was not kept alive merely to make the portfolio appear continuously deployed. Successful run history and implementation evidence were retained, while active workflows were converted to reproducible provider-independent checks.
+
+### Current CI instead of a broken deploy
+
+The active workflow performs Terraform formatting and validation, builds the Docker image, starts the container and verifies its health endpoint. It requests no OIDC token and cannot change AWS resources.
 
 ## Validation approach
 
-The workflows contain explicit verification steps:
+Historical AWS validation included:
 
-- confirm the AWS identity with `aws sts get-caller-identity`
-- run `terraform fmt`, `init`, `validate` and `plan`
-- build the Docker image before publishing it
-- tag published images by environment and commit SHA
+- AWS identity confirmation through STS
+- Terraform format, initialization, validation, plan and apply
+- Docker image publication to ECR
+- environment and commit-SHA image tags
+
+Current validation includes:
+
+- Terraform formatting
+- canonical and development configuration validation without a backend
+- Docker image construction
+- container startup and live `/health` verification
 
 ## Operational and cost considerations
 
-- IAM roles should follow least privilege and be scoped to the required repository, branch and workflow.
-- Terraform state must never be committed to Git.
-- Temporary learning resources are destroyed after validation to avoid ongoing charges.
-- Image repositories need a retention policy as image history grows.
+- Use least-privilege IAM scoped to the required repository, branch and workflow.
+- Keep Terraform state and account-specific backend values outside Git.
+- Destroy temporary learning resources after validation.
+- Retire credentials and workflows when the associated account no longer exists.
+- Preserve verifiable evidence without claiming that removed infrastructure is still live.
 
 ## Interview version
 
-> I built this to connect Terraform, Docker and GitHub Actions into one AWS delivery workflow. The key security decision was GitHub OIDC: GitHub assumes a short-lived AWS role instead of storing long-lived credentials. The pipeline validates Terraform, publishes traceable ECR image tags and keeps state remote, versioned and locked. My next production-hardening step would be PR plans and protected deployment environments.
+> I built and validated an AWS delivery workflow using Terraform, Docker, GitHub Actions, OIDC, ECR and remote state. After completing the Free Tier learning work, I intentionally retired the AWS account to avoid maintaining unused infrastructure. I preserved the successful deployment evidence and converted the repository to portable CI that validates Terraform and health-checks the container without requiring cloud credentials.
 
 ## Status
 
-Active hands-on implementation. The repository contains the infrastructure and workflows described above; production controls are documented as the next iteration rather than claimed as complete.
+Completed historical AWS deployment with retained evidence, plus active provider-independent portfolio CI. No live AWS environment is claimed.

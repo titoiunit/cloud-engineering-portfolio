@@ -6,7 +6,7 @@ I build cloud solutions with a practical engineering mindset: clarify the operat
 
 ## What I bring
 
-- **Infrastructure as Code:** Terraform modules, environment structure, remote state, and repeatable deployments.
+- **Infrastructure as Code:** Terraform modules, environment structure, remote-state design, and repeatable deployments.
 - **AWS architecture:** VPC networking, EC2, RDS, S3, CloudFront, API Gateway, Lambda, DynamoDB, SQS, ECS Fargate, and Auto Scaling.
 - **DevOps delivery:** Dockerized workloads, GitHub Actions, OIDC-based AWS authentication, deployment, and rollback thinking.
 - **Cloud operations:** CloudWatch, logging, alarms, cost awareness, least-privilege IAM, and cleanup discipline.
@@ -17,7 +17,9 @@ I build cloud solutions with a practical engineering mindset: clarify the operat
 | Project | Architecture / focus | What it demonstrates |
 |---|---|---|
 | [AWS Infrastructure Architectures](https://github.com/titoiunit/aws-infrastructure-architectures) | EC2 + RDS, serverless API, event-driven processing, Auto Scaling, ECS Fargate, and static delivery | Choosing compute patterns, Terraform, network boundaries, security controls, and scalable design |
-| [AWS Terraform Infrastructure](https://github.com/titoiunit/aws-terraform-infrastructure) | Terraform, remote state, Docker, GitHub Actions OIDC, and Amazon ECR delivery | Reusable IaC, environment separation, short-lived cloud credentials, and repeatable delivery |
+| [AWS Terraform Infrastructure](https://github.com/titoiunit/aws-terraform-infrastructure) | Terraform modules, Docker, GitHub Actions and a historically validated OIDC/ECR/AWS delivery path | Reusable IaC, short-lived cloud credentials, deployment evidence, cost-aware account retirement and portable CI |
+
+The AWS learning environment was intentionally retired after successful Free Tier validation. Successful deployment runs remain linked as evidence; active CI now validates Terraform and health-checks the container without claiming live infrastructure.
 
 ## Supporting work in active development
 
@@ -68,4 +70,4 @@ The next labs are prioritised in the [cost-aware roadmap](roadmap/README.md): pr
 
 ## Status
 
-Active portfolio. I build the implementation first, then publish the architecture, validation evidence, and operational notes that support it.
+Active portfolio. Implemented work, historical cloud validation and current reproducible CI are separated clearly from planned development.
